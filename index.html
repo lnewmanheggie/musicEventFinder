@@ -28,15 +28,10 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a id="savedEvents" class="button is-primary">
-                        <script type="text/javascript">
-                            document.getElementById("savedEvents").onclick = function () {
-                                location.href = "./Assets/saved-events.html";
-                            };
-                        </script>
-                        <strong>Saved Events</strong>
+                    <a id="saved-events" class="button is-primary savedEvents">
+                        Saved Events
                     </a>
-                    <a class="button is-light">
+                    <a class="button is-light" id="events-near-me">
                         Events Near Me
                     </a>
                 </div>
@@ -69,7 +64,7 @@
                         </a>
                       </li>
                     </ul>
-                  </div>
+                </div>
             </div>
         </div>
     </section>

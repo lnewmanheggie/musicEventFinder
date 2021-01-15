@@ -8,3 +8,6 @@ body {
     color:rgb(241, 241, 241);
 }
 
+.savedEvents {
+    font-weight: bold;
+}
