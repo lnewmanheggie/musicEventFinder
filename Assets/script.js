@@ -33,3 +33,25 @@ method: "GET"
 
 // Artist search button
 
+// start of location pull
+
+var locationofuser = document.getElementById("test");
+
+function getLocation() {
+    
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition);
+  } else { 
+    locationofuser.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+    
+function showPosition(position) {
+    locationofuser.innerHTML="Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+    console.log(position)
+}
+// end of location pull
+
+
+// getlocationbyId

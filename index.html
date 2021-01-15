@@ -33,12 +33,13 @@
                             document.getElementById("savedEvents").onclick = function () {
                                 location.href = "./Assets/saved-events.html";
                             };
+                            // change to getlocationbyID afterwards un-did to test location w/o issues.
                         </script>
                         <strong>Saved Events</strong>
                     </a>
-                    <a class="button is-light">
+                    <btn onclick ="getLocation()" id= "test" class="button is-light">
                         Events Near Me
-                    </a>
+                    </btn>
                 </div>
             </div>
         </div>
