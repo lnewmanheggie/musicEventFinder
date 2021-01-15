@@ -27,7 +27,9 @@ method: "GET"
             let time = results[i].dates.start.localTime;
             time = moment(time, "H").format("h A");
             date = moment(date, 'YYYY-MM-DD').format("l");
-            console.log(date, time)
         }
     }
 });
+
+// Artist search button
+
