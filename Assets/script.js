@@ -32,4 +32,19 @@ method: "GET"
 });
 
 // Artist search button
+const searchBtn = $("#search")
+let artistVal;
+let cityVal;
+let venueVal;
+
+searchBtn.on("click", getValues)
+
+function getValues(event) {
+    event.preventDefault();
+    artistVal = $("#artist").val()
+    cityVal = $("#city").val()
+    venueVal = $("#venue").val()
+}
+
+
 
