@@ -1,3 +1,9 @@
 body {
     background-color: rgb(241, 241, 241);
 }
+
+.footer-style {
+    border-top: 1rem solid #f14668;
+    background-color: #4a4a4a;
+    color:rgb(241, 241, 241);
+}
