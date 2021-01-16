@@ -35,59 +35,59 @@ When button is cliked:
     }
 */
 
-// function getValues(event) {
-//     event.preventDefault();
-//     var artistVal = $("#artist").val()
-//     ticketmasterApiCall(artistVal);
+function getValues(event) {
+    event.preventDefault();
+    var artistVal = $("#artist").val()
+    ticketmasterApiCall(artistVal);
 
-//     var cityVal = $("#city").val()
-//     ticketmasterApiCall(cityVal);
+    var cityVal = $("#city").val()
+    ticketmasterApiCall(cityVal);
 
-//     var venueVal = $("#venue").val()
-//     ticketmasterApiCall(venueVal);
-// }
+    var venueVal = $("#venue").val()
+    ticketmasterApiCall(venueVal);
+}
 
 // // TICKETMASTER API CALL
 
-// function ticketmasterApiCall(searchValue) {
-//     var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + searchValue + "&apikey=jAVZgW6que5FVdtiygGWfal7FvFxA8ue"
-//     $.ajax({
-//         url: queryURL,
-//         method: "GET"
-//     })
-//     .then(function(response) {
-//         getData(response);
-//     });
-// }
+function ticketmasterApiCall(searchValue) {
+    var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + searchValue + "&apikey=jAVZgW6que5FVdtiygGWfal7FvFxA8ue"
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+    .then(function(response) {
+        getData(response);
+    });
+}
 
 
-// function getData(response) {
-//     console.log(response)
-//     var results = response._embedded.events;
+function getData(response) {
+    console.log(response)
+    var results = response._embedded.events;
 
-//     for (var i = 0; i < results.length; i++) {
-//         if (results.classifications[0].segment.name === "Music") {
-//             var name = results.name;
-//             var ticketUrl = results.url;
-//             var priceLow = "Unknown";
-//             var priceHigh = "Unknown";
-//             if (results.priceRanges) {
-//                 priceLow = results.priceRanges[0].min
-//                 priceHigh = results.priceRanges[0].max
-//             }
-//             var venue = results._embedded.venues[0].name;
-//             var lat = results._embedded.venues[0].location.latitude;
-//             var long = results._embedded.venues[0].location.longitude;
+    for (var i = 0; i < results.length; i++) {
+        if (results.classifications[0].segment.name === "Music") {
+            var name = results.name;
+            var ticketUrl = results.url;
+            var priceLow = "Unknown";
+            var priceHigh = "Unknown";
+            if (results.priceRanges) {
+                priceLow = results.priceRanges[0].min
+                priceHigh = results.priceRanges[0].max
+            }
+            var venue = results._embedded.venues[0].name;
+            var lat = results._embedded.venues[0].location.latitude;
+            var long = results._embedded.venues[0].location.longitude;
             
-//             var date = results.dates.start.localDate;
-//             var time = results.dates.start.localTime;
-//             time = moment(time, "H").format("h A");
-//             date = moment(date, 'YYYY-MM-DD').format("l");
+            var date = results.dates.start.localDate;
+            var time = results.dates.start.localTime;
+            time = moment(time, "H").format("h A");
+            date = moment(date, 'YYYY-MM-DD').format("l");
 
-//             console.log(date, time);
-//         }
-//     }
-// }
+            console.log(date, time);
+        }
+    }
+}
 
 
 // BANDS IN TOWN API CALL
@@ -100,21 +100,24 @@ url: queryURL,
 method: "GET"
 })
 .then(function(response) {
-    console.log(response)
     if (response.length >= 1) {
         for (var i = 0; i < response.length; i++) {
-        var results = response[i];
-        var lineup = results.lineup;
-        var ticketUrl = results.offers[0].url;
-        var priceLow = "Unknown";
-        var priceHigh = "Unknown";
-        var venue = results.venue.name;
-        var city = results.venue.city;
-        var thumburl = results.artist.thumb_url
-        var date = results.datetime; //// this needs to be parsed
-    }
+            var results = response[i];
+            var lineup = results.lineup;
+            var ticketUrl = results.offers[0].url;
+            var priceLow = "Unknown";
+            var priceHigh = "Unknown";
+            var venue = results.venue.name;
+            var city = results.venue.city;
+            if (results.artist) {
+                var thumburl = results.artist.thumb_url
+            }
+            var dateRaw = results.datetime; 
+            var time = moment(dateRaw, moment.ISO_8601).format("hh:mm A");
+            var date2 = moment(dateRaw, moment.ISO_8601).format("l");
+        }
     } else {
-        // console.log("nothing found")
+        console.log("nothing found")
     }
 
 });
