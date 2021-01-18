@@ -11,3 +11,7 @@ body {
 .savedEvents {
     font-weight: bold;
 }
+
+footer {
+    background-color: royalblue;
+}

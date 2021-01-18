@@ -48,7 +48,7 @@ function bandsintownApiCall(artist, city, venue) {
             time: moment(event.datetime).format("h:mm A"),
             date: moment(event.datetime).format("l"),
         }))
-        displayEvents(events, artist, city, venue)
+        filterEvents(events, artist, city, venue)
     });
 }
 
@@ -70,23 +70,28 @@ function ticketmasterApiCall(artist, city, venue) {
                     time: moment(event.dates.start.localTime, "HH:mm").format("h:mm A"),
                     date: moment(event.dates.start.localDate, "YYYY-MM-DD").format("l"),
                 }))
-            displayEvents(events, artist, city, venue)
+            filterEvents(events, artist, city, venue)
         });
 }
 
 // THIS FUNCTION RETURNS RELEVANT DATA- USE TO CREATE THE CARDS
 // name, url, venue, city, time, date
-function displayEvents(events, artist, city, venue) {
+function filterEvents(events, artist, city, venue) {
     let filtered = events;
 
     if (artist) filtered = filtered.filter(x => x.name.toLowerCase().includes(artist.toLowerCase()))
     if (venue) filtered = filtered.filter(x => x.venue.toLowerCase() === venue.toLowerCase())
     if (city) filtered = filtered.filter(x => x.city.toLowerCase() === city.toLowerCase())
 
-    console.log(filtered)
+    createCards(filtered);
 }
 
-
+function createCards (filtered){
+    for (let i = 0; i < filtered.length; i++) {
+        console.log(filtered[i].name)
+        
+    }
+}
 
 
 
