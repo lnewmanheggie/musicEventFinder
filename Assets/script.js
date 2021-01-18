@@ -1,59 +1,95 @@
 // SAVED EVENTS BUTTON
 
-$("#saved-events").on("click", function() {
+$("#saved-events").on("click", function () {
     location.href = "saved-events.html";
 });
 
+// grab search button 
+var searchBtn = $("#search");
+var searchContainer = $("#search-container");
+var error = $("<p>").attr("id", "error-message").addClass("has-text-centered");
 
-// TICKETMASTER API CALL
+var virtual = false;    // use this when we get the toggler working
 
-var queryUrlVenue = "https://app.ticketmaster.com/discovery/v2/venues.json?keyword=" + venueVal + "&apikey=jAVZgW6que5FVdtiygGWfal7FvFxA8ue"
-var queryURLCity = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=jAVZgW6que5FVdtiygGWfal7FvFxA8ue&city=" + cityVal;
+searchBtn.on("click", getValues);
 
-$.ajax({
-url: queryURL,
-method: "GET"
-})
-.then(function(response) {
-    console.log(response)
-    var results = response._embedded.events;
-
-    for (var i = 0; i < results.length; i++) {
-        if (results[i].classifications[0].segment.name === "Music") {
-            var name = results[i].name;
-            var ticketUrl = results[i].url;
-            var priceLow = "Unknown";
-            var priceHigh = "Unknown";
-            if (results[i].priceRanges) {
-                priceLow = results[i].priceRanges[0].min
-                priceHigh = results[i].priceRanges[0].max
-            }
-            var venue = results[i]._embedded.venues[0].name;
-            var lat = results[i]._embedded.venues[0].location.latitude;
-            var long = results[i]._embedded.venues[0].location.longitude;
-            
-            var date = results[i].dates.start.localDate;
-            var time = results[i].dates.start.localTime;
-            time = moment(time, "H").format("h A");
-            date = moment(date, 'YYYY-MM-DD').format("l");
-        }
+function getValues() {
+    var search = {  
+        artist: $("#artist").val() || false,
+        city: $("#city").val() || false,
+        venue: $("#venue").val() || false
     }
-});
 
-// Search button for artist, city, venue
-const searchBtn = $("#search")
-var artistVal;
-var cityVal;
-var venueVal;
+    if (!(search.artist || search.city || search.venue)) { // if everything is empty
+        error.text("You may search by artist, city, or venue, or by artist + one other value");
+        searchContainer.append(error)
+        return;
+    }      
 
-searchBtn.on("click", getValues)
+    if (search.artist) {
+       return bandsintownApiCall(search.artist, search.city, search.venue)
+    }
+    ticketmasterApiCall(search.artist, search.city, search.venue)
 
-function getValues(event) {
-    event.preventDefault();
-    artistVal = $("#artist").val()
-    cityVal = $("#city").val()
-    venueVal = $("#venue").val()
+}
+
+function bandsintownApiCall(artist, city, venue) {
+    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=test&date=upcoming";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+    .then(function (response) {
+        var events = response.map(event => ({
+            name: event.lineup.join(", "),
+            url: event.url,
+            venue: event.venue.name,
+            city: event.venue.city,
+            time: moment(event.datetime).format("h:mm A"),
+            date: moment(event.datetime).format("l"),
+        }))
+        displayEvents(events, artist, city, venue)
+    });
+}
+
+function ticketmasterApiCall(artist, city, venue) {
+    var term = city || venue
+    var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + term + "&apikey=jAVZgW6que5FVdtiygGWfal7FvFxA8ue"
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+        .then(function (response) {
+            var events = response._embedded.events
+                .filter(event => event.classifications[0].segment.name === "Music")
+                .map(event => ({
+                    name: event.name,
+                    url: event.url,
+                    venue: event._embedded.venues[0].name,
+                    city: event._embedded.venues[0].city.name,
+                    time: moment(event.dates.start.localTime, "HH:mm").format("h:mm A"),
+                    date: moment(event.dates.start.localDate, "YYYY-MM-DD").format("l"),
+                }))
+            displayEvents(events, artist, city, venue)
+        });
+}
+
+// THIS FUNCTION RETURNS RELEVANT DATA- USE TO CREATE THE CARDS
+// name, url, venue, city, time, date
+function displayEvents(events, artist, city, venue) {
+    let filtered = events;
+
+    if (artist) filtered = filtered.filter(x => x.name.toLowerCase().includes(artist.toLowerCase()))
+    if (venue) filtered = filtered.filter(x => x.venue.toLowerCase() === venue.toLowerCase())
+    if (city) filtered = filtered.filter(x => x.city.toLowerCase() === city.toLowerCase())
+
+    console.log(filtered)
 }
 
 
 
+
+
+// function createCards(name, ticketUrl, priceLow, priceHigh, venue, date, time) {
+// function to dynamically create cards from api data
+// }
