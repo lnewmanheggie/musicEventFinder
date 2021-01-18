@@ -6,47 +6,18 @@ $("#saved-events").on("click", function() {
 
 // grab search button 
 var searchBtn = $("#search");
-var searchContainer = $("#search-container")
+var searchContainer = $("#search-container");
+var error = $("<p>").attr("id", "error-message").addClass("has-text-centered");
 
 var virtual = false;
 
-if (virtual === false) {
-    searchBtn.on("click", getValuesLive);
-} else {
-    searchBtn.on("click", getValuesVirtual);
-}
+// relevant data will go in here and then be sorted
 
+// check toggler to see if virtual is true
 
+searchBtn.on("click", getValues);
 
-/* 
-When button is cliked:
-    Check toggler value 
-    if live event === true:
-        none of the boxes will show up as required input
-        if artist, city, and venue name all entered: (or artist and city or artist and venue)
-            - use ticketmaster api to search artistname, then pull out values for city and venue
-            - use bandsintown api to search for artistname, then pull out values for city and venue
-            - Check for duplicates and devare any duplicate events
-            - sort based on date (sooner events at the top)
-            - display relevant information on cards
-
-        else if artist is not entered:
-            - use only the ticketmaster api to search city or venue
-            - if city and venue are entered, use city api call to then get information for venue
-            - sort based on date (sooner events at the top)
-            - display relevant information on cards
-
-    else if virtual === true {
-        (maybe delete the input boxes for city and venue?)
-        - only search bandsintown api
-        - search based on artist name, and check if virtual
-        - if so, display relevant information on cards
-    }
-*/
-
-var resultsArray = [];
-
-function getValuesLive(event) {
+function getValues(event) {
     event.preventDefault();
     $("#error-message").remove(); // removes the error message if there is one
 
@@ -54,70 +25,53 @@ function getValuesLive(event) {
 
     var artistVal = $("#artist").val();
     artistVal = artistVal.trim(); 
-    console.log(artistVal)
 
     var cityVal = $("#city").val();
     cityVal = cityVal.trim();
-    console.log(cityVal)
 
     var venueVal = $("#venue").val();
     venueVal = venueVal.trim();
-    console.log(venueVal)
 
 
+    if (virtual === false) {
+        if (artistVal) {
+            var res = bandsintownApiCall(artistVal);
+            console.log(res)
+            
+            // if array is empty throw error
+            // if (cityVal) {
+                
+            // } else if (venueVal) {
+                
+            // } else {
+            //     // display cards
+            // }
+        } else if (cityVal && artistVal === "" && venueVal === "") {
+            ticketmasterApiCall(cityVal);
+            
 
-    // HOW TO GET ONE FUNCTION TO EXECUTE AND THEN ANOTHER??
+        } else if (venueVal && artistVal === "" && cityVal === "") {
+            ticketmasterApiCall(venueVal);
+            
 
-
-    if (artistVal != "" && cityVal === "" && venueVal === "") {  // only artist is filled in
-        ticketmasterApiCall(artistVal)
-        bandsintownApiCall(artistVal)
-        console.log(objArray)
-        
-        
-        // search array for duplicates
-        // create cards
-    } else if (artistVal != "" && cityVal != "" && venueVal === "") { // artist and city are filled in
-        ticketmasterApiCall(artistVal);
-        bandsintownApiCall(artistVal);
-        // search array for duplicates and see if items match cityVal
-        // create cards
-    } else if (artistVal != "" && cityVal === "" && venueVal != "") { // artist and venue are filled in
-        ticketmasterApiCall(artistVal);
-        bandsintownApiCall(artistVal);
-        // search array for duplicates and see if items match venueVal
-        // create cards
-    } else if (artistVal === "" && cityVal != "" && venueVal === "") { // if only city filled in
-        ticketmasterApiCall(cityVal);
-        // create cards
-    } else if (artistVal === "" && cityVal === "" && venueVal != "") {
-        ticketmasterApiCall(venueVal);
-        // create cards
-    }
+        } else {
+            error.text("You may search by artist, city, or venue, or artist + any other value");
+            searchContainer.append(error);
+        }
+    } 
     else {
-        var error = $("<p>").attr("id", "error-message").addClass("has-text-centered").text("You may search by artist, city, or venue, or artist + any other value")
-        searchContainer.append(error)
-    }
-
-}
-
-function getValuesVirtual(event) {
-    event.preventDefault();
-    $("#error-message").remove();  // removes the error message if there is one
-
-    var artistValVirtual = $("#artist").val();
-    artistValVirtual = artistValVirtual.trim();
-    bandsintownApiCall(artistValVirtual);
-
-    if ($("#city").val() != "" || $("#venue").val() != "") {
-        var error = $("<p>").attr("id", "error-message").addClass("has-text-centered").text("City and venue not valid for virtual events")
-        searchContainer.append(error)
+        if (artistVal != "" && cityVal === "" && venueVal === "") {
+            bandsintownApiCall(artistVal)
+            // if array is empty throw error
+            // search for virtual events
+            // create cards
+        } else {
+            error.text("City and venue not valid for virtual events");
+            searchContainer.append(error);
+        }
     }
 }
 
-// CREATE AN EMPTY ARRAY TO PUSH OBJECTS
-
-var objArray = [];
 
 
 // // TICKETMASTER API CALL
@@ -129,66 +83,48 @@ function ticketmasterApiCall(searchVal) {
         method: "GET"
     })
     .then(function(response) {
-        getDataTicketmaster(response);
-    });
-}
+        console.log("ticketmaster", response)
 
-function getDataTicketmaster(response) {
-    console.log("ticketmaster", response)
     var results = response._embedded.events;
-    var error = $("<p>").attr("id", "error-message").addClass("has-text-centered").text("Nothing found")
-  
-    if (results.length >= 1) {
-        for (var i = 0; i < results.length; i++) {
-            if (results[i].classifications[0].segment.name === "Music") {
 
-                // create an object
-                var tktmstrObj = {
-                    name: "",
-                    ticketUrl: "",
-                    priceLow: "Unknown",
-                    priceHigh: "Unknown",
-                    thumburl: "",
-                    venue: "",
-                    city: "",
-                    lat: "",
-                    lon: "",
-                    date: "",
-                    time: ""
-                }
 
-                tktmstrObj.name = results[i].name;
-                tktmstrObjticketUrl = results[i].url;
-                if (results.priceRanges) {
-                    tktmstrObj.priceLow = results[i].priceRanges[0].min
-                    tktmstrObj.priceHigh = results[i].priceRanges[0].max
-                }
-                tktmstrObj.thumburl = results[i].images[0].url;
-                tktmstrObj.venue = results[i]._embedded.venues[0].name;
-                tktmstrObj.city = results[i]._embedded.venues[0].city.name;
-                tktmstrObj.lat = results[i]._embedded.venues[0].location.latitude;
-                tktmstrObj.lon = results[i]._embedded.venues[0].location.longitude;
-                var date = results[i].dates.start.localDate;
-                var time = results[i].dates.start.localTime;
-                tktmstrObj.time = moment(time, "H").format("h A");
-                tktmstrObj.date = moment(date, 'YYYY-MM-DD').format("l");
-    
-                var seen = false;
-                if (objArray.length != 0) {
-                    for (let i = 0; i < objArray.length; i++) {
-                        if (tktmstrObj.date === objArray[i].date && tktmstrObj.city === objArray[i].city) {
-                            seen = true;
-                        }
-                    }
-                    if (seen === false) {
-                        objArray.push(tktmstrObj);
-                    }
-                } else {
-                    objArray.push(tktmstrObj);
-                }
+    var resultsArray1 = [];
+
+    for (var i = 0; i < results.length; i++) {
+        if (results[i].classifications[0].segment.name === "Music") {
+
+            // create an object
+            var tktmstrObj = {
+                name: "",
+                url: "",
+                thumburl: "",
+                venue: "",
+                city: "",
+                lat: "",
+                lon: "",
+                date: "",
+                time: ""
             }
+
+            tktmstrObj.name = results[i].name;
+            tktmstrObj.url = results[i].url;
+            tktmstrObj.thumburl = results[i].images[0].url;
+            tktmstrObj.venue = results[i]._embedded.venues[0].name;
+            tktmstrObj.city = results[i]._embedded.venues[0].city.name;
+            tktmstrObj.lat = results[i]._embedded.venues[0].location.latitude;
+            tktmstrObj.lon = results[i]._embedded.venues[0].location.longitude;
+            var date = results[i].dates.start.localDate;
+            var time = results[i].dates.start.localTime;
+            tktmstrObj.time = moment(time, "H").format("h A");
+            tktmstrObj.date = moment(date, 'YYYY-MM-DD').format("l");
+
+            resultsArray1.push(tktmstrObj);
+            
         }
     }
+
+    // return resultsArray;
+    });
 }
 
 // BANDS IN TOWN API CALL
@@ -200,33 +136,25 @@ function bandsintownApiCall(searchVal) {
     method: "GET"
     })
     .then(function(response) {
-        getDataBandsintown(response)
-    });
-}
-
-function getDataBandsintown(response) {
-    console.log("bandsintown", response)
-    if (response.length >= 1) {
+        var resultsArray2 = [];
+        
         for (var i = 0; i < response.length; i++) {
 
             // create an object
             var bndsObj = {
                 name: "",
-                ticketUrl: "",
-                priceLow: "Unknown",
-                priceHigh: "Unknown",
+                url: "",
                 thumburl: "",
                 venue: "",
                 city: "",
-                lat: "",
-                lon: "",
                 date: "",
                 time: ""
             }
-
+    
             var results = response[i];
             bndsObj.name = results.lineup;
-            bndsObj.ticketUrl = results.offers[0].url;
+            bndsObj.url = results.url;
+            
             bndsObj.venue = results.venue.name; // use this to check if live stream
             bndsObj.city = results.venue.city;
             if (results.artist) {
@@ -235,24 +163,18 @@ function getDataBandsintown(response) {
             var dateRaw = results.datetime; 
             bndsObj.time = moment(dateRaw, moment.ISO_8601).format("hh:mm A");
             bndsObj.date = moment(dateRaw, moment.ISO_8601).format("l");
-
+    
             // push to array
-            var seen = false;
-            if (objArray.length != 0) {
-                for (let i = 0; i < objArray.length; i++) {
-                    if (bndsObj.date === objArray[i].date) {
-                        seen = true;
-                    }
-                }
-                if (seen === false) {
-                    objArray.push(bndsObj);
-                }
-            } else {
-                objArray.push(bndsObj);
-            }
+            resultsArray2.push(bndsObj);
         }
-    }
+
+        // console.log(resultsArray2)
+        return resultsArray2;
+        
+    });
+    
 }
+
 
 
 
