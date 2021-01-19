@@ -136,7 +136,6 @@ function createCards (filtered){
     }
 }
 
-<<<<<<< HEAD
 $("li").on("click",function(){
     // alert("working list item");
     var listItem =  $(this).attr("class");
@@ -151,7 +150,6 @@ $("li").on("click",function(){
     }
 
 })
-=======
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
 function getSavedEvents() {
@@ -161,4 +159,3 @@ function getSavedEvents() {
 function setSavedEvents(val) {
     localStorage.setItem("savedEvents", JSON.stringify(val))
 }
->>>>>>> 6f246a6431077718ffab670d4a84002dc6d3821f

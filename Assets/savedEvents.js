@@ -1,28 +1,23 @@
 // Put all the js for the saved events page in here
-
 function getSavedEvents() {
     return JSON.parse(localStorage.getItem("savedEvents")) || []
 }
 
-
 createCards();
 
 
+function createCards(){
+    var getSaved = getSavedEvents();
 
-
-function createCards (){
-    var resultsText = $("#results-text");
-    var resultsBox = $("#results-box");
-    const getSaved = getSavedEvents();
-    console.log(getSaved);
-    resultsText.empty();
-    resultsBox.empty();
-    // have a condition here for the number of results
-    resultsText.append($("<h2>").addClass("is-size-3").text("Results"))
+    var savedEventsBox = $("#saved-events-box");
+    savedEventsBox.empty();
+   
+    
     var wrapper = $("<div>").addClass("notification is-primary");
-    resultsBox.append(wrapper);
+    savedEventsBox.append(wrapper);
 
     for (let i = 0; i < getSaved.length; i++) {
+        console.log(getSaved[i])
         var box = $("<div>").addClass("box mx-5 has-text-centered");
         wrapper.append(box);
         var content = $("<div>").addClass("content");
@@ -43,6 +38,9 @@ function createCards (){
         content.append(footer);
 
         // add event listner to grab the data when save btn is clicked
-
+        saveBtn.on("click", function() {
+            var savedData = $(this).data("info");
+            // put the data into local storage
+        })
     }
 }
