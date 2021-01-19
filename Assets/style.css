@@ -12,6 +12,10 @@ body {
     color: green
 }
 
+#home-btn {
+    color:rgb(241, 241, 241);
+}
+
 footer {
     background-color: rgb(225, 129, 65);
 }
