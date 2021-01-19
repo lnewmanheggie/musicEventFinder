@@ -7,3 +7,11 @@ body {
     background-color: #4a4a4a;
     color:rgb(241, 241, 241);
 }
+
+.savedEvents {
+    font-weight: bold;
+}
+
+footer {
+    background-color: royalblue;
+}
