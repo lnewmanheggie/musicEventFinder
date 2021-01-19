@@ -12,12 +12,6 @@
 
 <body>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-        <!-- <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-          </a>
-      
-        </div> -->
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
@@ -31,9 +25,9 @@
                     <a id="saved-events" class="button is-primary savedEvents">
                         Saved Events
                     </a>
-                    <a class="button is-light" id="events-near-me">
+                    <btn onclick= "getLocation()"class="button is-light locationtest" id="events-near-me">
                         Events Near Me
-                    </a>
+                    </btn>
                 </div>
             </div>
         </div>
@@ -44,21 +38,18 @@
         <div class="hero-body">
             <div class="container ">
                 <h1 class="title">
-                    Description of the site
+                    A place to find and save music events.
                     <!-- change this later -->
                 </h1>
-                <h2 class="subtitle">
-                    Find Events
-                </h2>
                 <div class="tabs is-toggle is-centered">
                     <ul>
-                      <li >  <!-- change this class when the other button is clicked -->
+                      <li class="is-active" id="live">  <!-- change this class when the other button is clicked -->
                         <a>
                           <span>Live Event</span>
                         </a>
                       </li>
                       
-                      <li class="is-active">
+                      <li id="virtual">
                         <a>
                           <span>Virtual Event</span>
                         </a>
@@ -71,6 +62,7 @@
     <section class="section">
         <div class="container is-max-desktop">
             <div class="notification is-primary" id="search-container">
+                <em><p class="has-text-centered mb-2">Note: for virtual events, you can only search by artist name</p></em>
                 <div class="columns">
                     <div class="column is-one-fifth">
                         
@@ -93,6 +85,7 @@
                           
                                 
                                 <input class="input" id="venue" type="text" placeholder="Venue">
+
                             </div>
                             <!-- <div class="control">
                                 <a href="/venue-search-button.html" class="button is-info">Search</a>
