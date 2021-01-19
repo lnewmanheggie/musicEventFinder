@@ -181,6 +181,7 @@ function setSavedEvents(val) {
 }
 
 
+
 // start of location code
 // start of location pull 
 var locationofuser = $(".locationtest");
