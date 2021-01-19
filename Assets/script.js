@@ -4,16 +4,34 @@ $("#saved-events").on("click", function () {
     location.href = "saved-events.html";
 });
 
+// virtual event toggler
+$("li").on("click",function(){
+    var listItem =  $(this).attr("class");
+    if(listItem === 'is-active'){
+        $(this).removeAttr("class");
+        $(this).siblings().addClass("is-active")
+    }else{
+        $(this).addClass("is-active")
+        $(this).siblings().removeAttr("class")
+    }
+
+})
+
 // grab search button 
 var searchBtn = $("#search");
 var searchContainer = $("#search-container");
 var error = $("<p>").attr("id", "error-message").addClass("has-text-centered");
 
-var virtual = false;    // use this when we get the toggler working
-
 searchBtn.on("click", getValues);
 
 function getValues() {
+    // check if item is virtual and if so, populate venue value with "live stream"
+    var virtual = $("#virtual").attr("class")
+    if (virtual === "is-active") {
+        $("#venue").val("live stream");
+    } 
+        
+    
     var search = {  
         artist: $("#artist").val() || false,
         city: $("#city").val() || false,
@@ -24,7 +42,7 @@ function getValues() {
         error.text("You may search by artist, city, or venue, or by artist + one other value");
         searchContainer.append(error)
         return;
-    }      
+    }    
 
     if (search.artist) {
        return bandsintownApiCall(search.artist, search.city, search.venue)
@@ -136,20 +154,8 @@ function createCards (filtered){
     }
 }
 
-$("li").on("click",function(){
-    // alert("working list item");
-    var listItem =  $(this).attr("class");
-    console.log(listItem)
-    if(listItem === 'is-active'){
-        $(this).removeAttr("class");
-        console.log($(this).siblings());
-        $(this).siblings().addClass("is-active")
-    }else{
-        $(this).addClass("is-active")
-        $(this).siblings().removeAttr("class")
-    }
 
-})
+
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
 function getSavedEvents() {
