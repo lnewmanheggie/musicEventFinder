@@ -155,6 +155,20 @@ function createCards (filtered){
 }
 
 
+$("li").on("click",function(){
+    // alert("working list item");
+    var listItem =  $(this).attr("class");
+    console.log(listItem)
+    if(listItem === 'is-active'){
+        $(this).removeAttr("class");
+        console.log($(this).siblings());
+        $(this).siblings().addClass("is-active")
+    }else{
+        $(this).addClass("is-active")
+        $(this).siblings().removeAttr("class")
+    }
+
+})
 
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
@@ -165,3 +179,47 @@ function getSavedEvents() {
 function setSavedEvents(val) {
     localStorage.setItem("savedEvents", JSON.stringify(val))
 }
+
+
+// start of location code
+// start of location pull 
+var locationofuser = $(".locationtest");
+var latInput;
+var longInput;
+// assigned to the button for now to make sure it is working, will change once we have the api's up and running
+function getLocation() {
+    
+    if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition);
+    } else { 
+    locationofuser.text("Geolocation is not supported by this browser.");
+    }
+}
+    
+function showPosition(position) {
+    // locationofuser.text("Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude)
+    latInput = position.coords.latitude ;
+    longInput = position.coords.longitude;
+    console.log( "lat",latInput);
+    console.log("long",longInput);
+    locationAPIconvert();
+// start of location conversion
+function locationAPIconvert() {
+    
+    var queryURL = "https://us1.locationiq.com/v1/reverse.php?key=pk.ecdb52a710229c9ea2d12411c0c751c6&lat="+ latInput +"&lon="+ longInput +"&format=json"
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+        .then(function (response) {
+            var cityofuser = response.address.city
+            console.log("city",response.address.city)
+        });
+}
+}
+
+// end of location pull & conversion
+
+
+
