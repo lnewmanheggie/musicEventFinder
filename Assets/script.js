@@ -17,7 +17,50 @@ $("li").on("click",function(){
 
 })
 
-// grab search button 
+// start of location code
+// start of location pull 
+var locationofuser = $("#events-near-me");
+var latInput;
+var longInput;
+
+locationofuser.on("click", getLocation);
+
+function getLocation() {
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+    } else { 
+        locationofuser.text("Geolocation is not supported by this browser.");
+    }
+}
+    
+function showPosition(position) {
+    // locationofuser.text("Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude)
+    latInput = position.coords.latitude ;
+    longInput = position.coords.longitude;
+    locationAPIconvert();
+// start of location conversion
+    function locationAPIconvert() {
+        
+        var queryURL = "https://us1.locationiq.com/v1/reverse.php?key=pk.ecdb52a710229c9ea2d12411c0c751c6&lat="+ latInput +"&lon="+ longInput +"&format=json"
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                var cityofuser = response.address.city
+
+                $("#city").val(cityofuser);
+                getValues();
+            });
+    }
+}
+
+// end of location pull & conversion
+
+
+// Regular search function
 var searchBtn = $("#search");
 var searchContainer = $("#search-container");
 var error = $("<p>").attr("id", "error-message").addClass("has-text-centered");
@@ -181,45 +224,7 @@ function setSavedEvents(val) {
 }
 
 
-// start of location code
-// start of location pull 
-var locationofuser = $(".locationtest");
-var latInput;
-var longInput;
-// assigned to the button for now to make sure it is working, will change once we have the api's up and running
-function getLocation() {
-    
-    if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(showPosition);
-    } else { 
-    locationofuser.text("Geolocation is not supported by this browser.");
-    }
-}
-    
-function showPosition(position) {
-    // locationofuser.text("Latitude: " + position.coords.latitude + 
-    // "<br>Longitude: " + position.coords.longitude)
-    latInput = position.coords.latitude ;
-    longInput = position.coords.longitude;
-    console.log( "lat",latInput);
-    console.log("long",longInput);
-    locationAPIconvert();
-// start of location conversion
-function locationAPIconvert() {
-    
-    var queryURL = "https://us1.locationiq.com/v1/reverse.php?key=pk.ecdb52a710229c9ea2d12411c0c751c6&lat="+ latInput +"&lon="+ longInput +"&format=json"
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    })
-        .then(function (response) {
-            var cityofuser = response.address.city
-            console.log("city",response.address.city)
-        });
-}
-}
 
-// end of location pull & conversion
 
 
 
