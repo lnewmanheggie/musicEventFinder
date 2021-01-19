@@ -120,13 +120,23 @@ function createCards (filtered){
         content.append(footer);
 
         // add event listner to grab the data when save btn is clicked
-        saveBtn.on("click", function() {
+        saveBtn.on("click", saveDataLocalStorage);
+        
+        
+        function saveDataLocalStorage() {
             var savedData = $(this).data("info");
-            // put the data into local storage
-        })
+
+            var savedEvents = getSavedEvents();
+
+            savedEvents.push(savedData);
+
+            setSavedEvents(savedEvents);
+            
+        }
     }
 }
 
+<<<<<<< HEAD
 $("li").on("click",function(){
     // alert("working list item");
     var listItem =  $(this).attr("class");
@@ -141,3 +151,14 @@ $("li").on("click",function(){
     }
 
 })
+=======
+// FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
+
+function getSavedEvents() {
+    return JSON.parse(localStorage.getItem("savedEvents")) || []
+}
+
+function setSavedEvents(val) {
+    localStorage.setItem("savedEvents", JSON.stringify(val))
+}
+>>>>>>> 6f246a6431077718ffab670d4a84002dc6d3821f
