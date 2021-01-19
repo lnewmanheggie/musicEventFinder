@@ -155,6 +155,20 @@ function createCards (filtered){
 }
 
 
+$("li").on("click",function(){
+    // alert("working list item");
+    var listItem =  $(this).attr("class");
+    console.log(listItem)
+    if(listItem === 'is-active'){
+        $(this).removeAttr("class");
+        console.log($(this).siblings());
+        $(this).siblings().addClass("is-active")
+    }else{
+        $(this).addClass("is-active")
+        $(this).siblings().removeAttr("class")
+    }
+
+})
 
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
@@ -165,3 +179,26 @@ function getSavedEvents() {
 function setSavedEvents(val) {
     localStorage.setItem("savedEvents", JSON.stringify(val))
 }
+
+
+// start of location code
+var locationofuser = $(".locationtest");
+console.log(locationofuser);
+// assigned to the button for now to make sure it is working, will change once we have the api's up and running
+function getLocation() {
+    
+    if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition);
+    } else { 
+    locationofuser.text("Geolocation is not supported by this browser.");
+    }
+}
+    
+function showPosition(position) {
+    locationofuser.text("Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude)
+    console.log(locationofuser)
+}
+
+// end of location code
+
