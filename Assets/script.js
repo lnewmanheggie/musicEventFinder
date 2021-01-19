@@ -182,8 +182,10 @@ function setSavedEvents(val) {
 
 
 // start of location code
+// start of location pull 
 var locationofuser = $(".locationtest");
-console.log(locationofuser);
+var latInput;
+var longInput;
 // assigned to the button for now to make sure it is working, will change once we have the api's up and running
 function getLocation() {
     
@@ -195,10 +197,29 @@ function getLocation() {
 }
     
 function showPosition(position) {
-    locationofuser.text("Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude)
-    console.log(locationofuser)
+    // locationofuser.text("Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude)
+    latInput = position.coords.latitude ;
+    longInput = position.coords.longitude;
+    console.log( "lat",latInput);
+    console.log("long",longInput);
+    locationAPIconvert();
+// start of location conversion
+function locationAPIconvert() {
+    
+    var queryURL = "https://us1.locationiq.com/v1/reverse.php?key=pk.ecdb52a710229c9ea2d12411c0c751c6&lat="+ latInput +"&lon="+ longInput +"&format=json"
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+        .then(function (response) {
+            var cityofuser = response.address.city
+            console.log("city",response.address.city)
+        });
+}
 }
 
-// end of location code
+// end of location pull & conversion
+
+
 
