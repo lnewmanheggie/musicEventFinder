@@ -120,9 +120,28 @@ function createCards (filtered){
         content.append(footer);
 
         // add event listner to grab the data when save btn is clicked
-        saveBtn.on("click", function() {
+        saveBtn.on("click", saveDataLocalStorage);
+        
+        
+        function saveDataLocalStorage() {
             var savedData = $(this).data("info");
-            // put the data into local storage
-        })
+
+            var savedEvents = getSavedEvents();
+
+            savedEvents.push(savedData);
+
+            setSavedEvents(savedEvents);
+            
+        }
     }
+}
+
+// FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
+
+function getSavedEvents() {
+    return JSON.parse(localStorage.getItem("savedEvents")) || []
+}
+
+function setSavedEvents(val) {
+    localStorage.setItem("savedEvents", JSON.stringify(val))
 }
