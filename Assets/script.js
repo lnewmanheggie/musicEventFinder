@@ -161,7 +161,7 @@ function getSavedEvents() {
 function setSavedEvents(val) {
     localStorage.setItem("savedEvents", JSON.stringify(val))
 }
-<<<<<<< HEAD
+
 
 // start of location code
 var locationofuser = $(".locationtest");
