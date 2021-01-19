@@ -10,18 +10,13 @@ function createCards(){
     var getSaved = getSavedEvents();
 
     var savedEventsBox = $("#saved-events-box");
+    savedEventsBox.empty();
     var wrapper = $("<div>").addClass("notification is-primary");
     savedEventsBox.append(wrapper);
 
     if (getSaved.length > 0) {
-        
-        savedEventsBox.empty();
-    
-        
-       
-
         for (let i = 0; i < getSaved.length; i++) {
-            console.log(getSaved[i])
+            
             var box = $("<div>").addClass("box mx-5 has-text-centered");
             wrapper.append(box);
             var content = $("<div>").addClass("content");
@@ -37,19 +32,29 @@ function createCards(){
             columnBox.append($("<div>").addClass("column is-size-5").text(getSaved[i].time));
 
             var footer = $("<footer>").addClass("card-footer");
-            var saveBtn = $("<button>").addClass("button is-info is-small is-fullwidth").text("Delete").data("info", getSaved[i]);
-            footer.append(saveBtn);
+            var delBtn = $("<button>").addClass("button is-info is-small is-fullwidth").text("Delete").data("info", getSaved[i]);
+            footer.append(delBtn);
             content.append(footer);
 
-            // add event listner to grab the data when save btn is clicked
-            saveBtn.on("click", function() {
-                var savedData = $(this).data("info");
-                // put the data into local storage
+            // delete button 
+            delBtn.on("click", function() {
+                
+
+                var delData = $(this).data("info");
+                var index = getSaved.indexOf(delData)
+                getSaved.splice(index, 1);
+
+                setSavedEvents(getSaved);
+
+                var deleteCard = $(this).parent().parent().parent();
+                deleteCard.remove();
             })
         }
     } else {
-        wrapper.append($("<h3>").addClass("has-text-centered is-size-5").text())
+        wrapper.append($("<h3>").addClass("has-text-centered is-size-5").text("No saved events"))
     }
+}
 
-    
+function setSavedEvents(val) {
+    localStorage.setItem("savedEvents", JSON.stringify(val))
 }
