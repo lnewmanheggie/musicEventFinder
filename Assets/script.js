@@ -136,6 +136,22 @@ function createCards (filtered){
     }
 }
 
+<<<<<<< HEAD
+$("li").on("click",function(){
+    // alert("working list item");
+    var listItem =  $(this).attr("class");
+    console.log(listItem)
+    if(listItem === 'is-active'){
+        $(this).removeAttr("class");
+        console.log($(this).siblings());
+        $(this).siblings().addClass("is-active")
+    }else{
+        $(this).addClass("is-active")
+        $(this).siblings().removeAttr("class")
+    }
+
+})
+=======
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
 function getSavedEvents() {
@@ -145,6 +161,7 @@ function getSavedEvents() {
 function setSavedEvents(val) {
     localStorage.setItem("savedEvents", JSON.stringify(val))
 }
+<<<<<<< HEAD
 
 // start of location code
 var locationofuser = $(".locationtest");
@@ -166,3 +183,6 @@ function showPosition(position) {
 }
 
 // end of location code
+=======
+>>>>>>> 6f246a6431077718ffab670d4a84002dc6d3821f
+>>>>>>> a9e8e8183a66f4f21f62cfcd8709fb956c19c644
