@@ -136,7 +136,7 @@ function createCards (filtered){
     }
 }
 
-<<<<<<< HEAD
+
 $("li").on("click",function(){
     // alert("working list item");
     var listItem =  $(this).attr("class");
@@ -151,7 +151,7 @@ $("li").on("click",function(){
     }
 
 })
-=======
+
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
 function getSavedEvents() {
@@ -183,6 +183,4 @@ function showPosition(position) {
 }
 
 // end of location code
-=======
->>>>>>> 6f246a6431077718ffab670d4a84002dc6d3821f
->>>>>>> a9e8e8183a66f4f21f62cfcd8709fb956c19c644
+
