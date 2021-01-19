@@ -31,9 +31,13 @@
                     <a id="saved-events" class="saved button is-primary savedEvents">
                         Saved Events
                     </a>
+<<<<<<< HEAD
                     <a id="events-near-me" class= "button is-light" >
+=======
+                    <btn onclick= "getLocation()"class="button is-light locationtest" id="events-near-me">
+>>>>>>> e69c6529bb11729a93462e27deb2311482db9500
                         Events Near Me
-                    </a>
+                    </btn>
                 </div>
             </div>
         </div>
@@ -52,13 +56,13 @@
                 </h2>
                 <div class="tabs is-toggle is-centered">
                     <ul>
-                      <li >  <!-- change this class when the other button is clicked -->
+                      <li class="is-active" id="live">  <!-- change this class when the other button is clicked -->
                         <a>
                           <span>Live Event</span>
                         </a>
                       </li>
                       
-                      <li class="is-active">
+                      <li id="virtual">
                         <a>
                           <span>Virtual Event</span>
                         </a>
@@ -71,6 +75,7 @@
     <section class="section">
         <div class="container is-max-desktop">
             <div class="notification is-primary" id="search-container">
+                <em><p class="has-text-centered mb-2">Note: for virtual events, you can only search by artist name</p></em>
                 <div class="columns">
                     <div class="column is-one-fifth">
                         
@@ -90,7 +95,11 @@
                     <div class="column is-one-fifth">
                         <div class="field has-addons">
                             <div class="control">
+<<<<<<< HEAD
                                 <input class="input" id="venue" type="text" placeholder="Venue">
+=======
+                                <input class="input" type="text" placeholder="Venue">
+>>>>>>> e69c6529bb11729a93462e27deb2311482db9500
                             </div>
                             <!-- <div class="control">
                                 <a href="/venue-search-button.html" class="button is-info">Search</a>

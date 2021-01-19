@@ -19,34 +19,34 @@ footer {
     color: rgb(255, 81, 0)
 }
 #saved-events-is-primary {
-    background-color: #ff8c00
+    background-color: #ff8c00;
     color: white
     
 }   
 #events-near-me-is-light {
-    background-color: #ff8c00
+    background-color: #ff8c00;
 }
 #search-container {
-    background-color: #fefe22
+    background-color: #fefe22;
 }
 #search-button {
-    background-color: #ff8c00
+    background-color: #ff8c00;
 }
 #search {
-    background-color: #ff8c00
+    background-color: #ff8c00;
 }
 .navbar-item {
-    background-color: #fefe22
+    background-color: #fefe22;
 }
 .button.is-primary { 
 
-background-color: #ff8c00
+background-color: #ff8c00;
  
 }
 .button.is-light {
-    background-color: #ff8c00
+    background-color: #ff8c00;
    
 }
 .notification.is-primary {
-    background-color: #fefe22
+    background-color: #fefe22;
 }
