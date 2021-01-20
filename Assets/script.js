@@ -196,6 +196,7 @@ function createCards (filtered){
     }
 }
 
+
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
 function getSavedEvents() {
