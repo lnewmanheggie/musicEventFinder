@@ -1,4 +1,4 @@
-# musicEventFinder
+# Torchic
 A website to find the music events through two different websites.
 # Created: '2021 January 20'
 
@@ -34,6 +34,6 @@ Results will show up based on search criteria. Users have the ability to save ev
 ![Demo](./Assets/UserLocation.gif)
 
 # Future Development
-Create a feature to search by genre
-Embed the link to buy tickets directly in the search results
+**One**: Create a feature to search by genre
+**Two**: Embed the link to buy tickets directly in the search results
 
