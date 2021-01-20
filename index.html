@@ -12,6 +12,9 @@
 
 <body>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+          <a class="navbar-item">
+            <img src="./Assets/torchic.png" width="25" height="50">
+          </a>
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
@@ -48,7 +51,6 @@
                           <span>Live Event</span>
                         </a>
                       </li>
-                      
                       <li id="virtual">
                         <a>
                           <span>Virtual Event</span>
@@ -64,47 +66,27 @@
             <div class="notification is-primary" id="search-container">
                 <em><p class="has-text-centered mb-2">Note: for virtual events, you can only search by artist name</p></em>
                 <div class="columns">
-                    <div class="column is-one-fifth">
-                        
-                        <div class="field has-addons">
-                            <div class="control">
-                                <input class="input" id="artist" type="text" placeholder="Artist">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-fifth">
-                        <div class="field has-addons">
-                            <div class="control">
-                                <input class="input" id="city" type="text" placeholder="City">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-fifth">
-                        <div class="field has-addons">
-                            <div class="control">
-                          
-                                
-                                <input class="input" id="venue" type="text" placeholder="Venue">
-
-                            </div>
-                            <!-- <div class="control">
-                                <a href="/venue-search-button.html" class="button is-info">Search</a>
-                            </div> -->
-                        </div>
-                    </div>
-                    <div class="column">
+                    <div class="column is-one-fourth">
                         <div class="control">
-                            <a class="button is-info px-6" id="search">Search</a>
+                            <input class="input" id="artist" type="text" placeholder="Artist">
                         </div>
                     </div>
-                    <div class="column is-one-fifth">
-                        <div class="select is-rounded">
-                            <select>
-                                <option>3 results</option>
-                                <option>4 results</option>
-                            </select>
+                    <div class="column is-one-fourth">
+                        <div class="control">
+                            <input class="input" id="city" type="text" placeholder="City">
                         </div>
                     </div>
+                    <div class="column is-one-fourth">
+                        <div class="control"> 
+                            <input class="input" id="venue" type="text" placeholder="Venue">
+                        </div>
+                    </div>
+                    <div class="column is-one-fourth">
+                        <div class="control">
+                            <a class="button is-info is-fullwidth" id="search">Search</a>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
