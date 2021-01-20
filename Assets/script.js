@@ -14,7 +14,6 @@ $("li").on("click",function(){
         $(this).addClass("is-active")
         $(this).siblings().removeAttr("class")
     }
-
 })
 
 // start of location code
@@ -197,20 +196,7 @@ function createCards (filtered){
     }
 }
 
-$("li").on("click",function(){
-    // alert("working list item");
-    var listItem =  $(this).attr("class");
-    console.log(listItem)
-    if(listItem === 'is-active'){
-        $(this).removeAttr("class");
-        console.log($(this).siblings());
-        $(this).siblings().addClass("is-active")
-    }else{
-        $(this).addClass("is-active")
-        $(this).siblings().removeAttr("class")
-    }
 
-})
 // FUNCTIONS TO SAVE EVENTS INTO LOCAL STORAGE AND GET EVENTS OUT OF LOCAL STORAGE
 
 function getSavedEvents() {
