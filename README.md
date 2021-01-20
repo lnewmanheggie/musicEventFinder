@@ -1,7 +1,7 @@
 # Torchic
 A website to find the music events through two different websites.
-# Created: 
-`2021 January 20`
+
+Created `2021 January 20`
 
 [Deployed App](https://lnewmanheggie.github.io/musicEventFinder/)
 
