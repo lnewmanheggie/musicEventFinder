@@ -1,6 +1,6 @@
 # Torchic
 A website to find the music events through two different websites.
-# Created: '2021 January 20'
+# Created: `2021 January 20`
 
 [Deployed App](https://lnewmanheggie.github.io/musicEventFinder/)
 
@@ -15,6 +15,9 @@ A website to find the music events through two different websites.
 * [Ticket Master](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
 * [Bands In Town](https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/)
 * [Reverse Geolocation](https://locationiq.com/sandbox/geocoding/reverse)
+
+# CSS library:
+* [Bulma](https://bulma.io/)
 
 # Application Preview
 To use this application check out the deployed link above.
@@ -35,5 +38,6 @@ Results will show up based on search criteria. Users have the ability to save ev
 
 # Future Development
 **One**: Create a feature to search by genre
+
 **Two**: Embed the link to buy tickets directly in the search results
 
