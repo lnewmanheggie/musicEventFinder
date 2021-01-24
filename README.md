@@ -7,20 +7,20 @@ Created `2021 January 20`
 
 [Repo](https://github.com/lnewmanheggie/musicEventFinder)
 
-# Project Team:
+## Project Team:
  * [Elizabeth](https://github.com/ebe1997) 
  * [Sam](https://github.com/zylanthic) 
  * [Hayden](https://github.com/H-garr) 
  * [Lydia](https://github.com/lnewmanheggie) 
-# API'S:
+## API'S:
 * [Ticket Master](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
 * [Bands In Town](https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/)
 * [Reverse Geolocation](https://locationiq.com/sandbox/geocoding/reverse)
 
-# CSS library:
+## CSS library:
 * [Bulma](https://bulma.io/)
 
-# Application Preview
+## Application Preview
 To use this application check out the deployed link above.
 
 **Live vs virtual toggler**: Allows users to specify whether they would like to search live events or virtual events.
@@ -37,8 +37,8 @@ Results will show up based on search criteria. Users have the ability to save ev
 
 ![Demo](./Assets/UserLocation.gif)
 
-# Future Development
-**One**: Create a feature to search by genre
+### Future Development
+* Create a feature to search by genre
 
-**Two**: Embed the link to buy tickets directly in the search results
+* Embed the link to buy tickets directly in the search results
 
