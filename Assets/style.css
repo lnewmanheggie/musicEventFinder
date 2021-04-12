@@ -2,6 +2,10 @@ body {
     background-color: rgba(241, 241, 241, 0.075);
 }
 
+.is-active span {
+    color: #f14668;
+}
+
 /* SAVED EVENTS BTN */
 #saved-events,
 #home,
